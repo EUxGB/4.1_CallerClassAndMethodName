@@ -1,16 +1,12 @@
 public class Test extends Main {
 
-    String name;
-
-    public Test(String name) {
-        this.name = name;
+    public static void testmethod1(){
+        testmethod2();
     }
-
-    public String getName(){
-        System.out.println(getCallerClassAndMethodName());
-        return name;
-
+    public static void testmethod2(){
+        testmethod3();
     }
-
+    public static void testmethod3(){
+        getCallerClassAndMethodName();
+    }
 }
-
