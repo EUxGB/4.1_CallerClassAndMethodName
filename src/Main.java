@@ -26,28 +26,37 @@ public class Main {
     }
 
     public static String getCallerClassAndMethodName() {
-        String inf_out = "";
-        StackTraceElement[] stackTraceElements = new Exception().getStackTrace();
-        if (stackTraceElements.length < 3) {
-            System.out.println(stackTraceElements[1]);
-            return null;
+        StackTraceElement[] stExceptions = new Exception().getStackTrace();     //1.    // or  new Throwable().getStackTrace()
+//        try {
+//            StackTraceElement element = new Throwable().getStackTrace()[2];
+//            return element.getClassName() + "#" + element.getMethodName();
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//            return null;
+//        }
+        StackTraceElement[] stThreads = Thread.currentThread().getStackTrace(); //2.
+//        if (st.length<=3) { //условие, что вызвали из точки входа
+//            return null;
+//        } else{
+//            return st[3].getClassName() + "#" + st[3].getMethodName();
+//        }
+//    }
+        //1.
+        int i = 0;
+        System.out.println("\n" + "использование Exception().getStackTrace()" + "\n" + "******************************************");
+        for (StackTraceElement el : stExceptions) {
+            System.out.println(i++ + ":" + el.getClassName() + "#" + el.getMethodName());
+
         }
-//        for (StackTraceElement element : stackTraceElements) {
-        //if (true) {System.out.println("null");return "null";}
-        // System.out.println(element.getClassName() + "#" + element.getMethodName());
-//        for (int i = 0; i < stackTraceElements.length; i++) {
-////            if (i >= 2) {
-////
-////                inf_out =stackTraceElements[i].getClassName() + "#" + stackTraceElements[i].getMethodName();
-////                System.out.println(inf_out);
-////                //return inf_out;
-//////
-////                // }
-////            }
-        //System.out.println(inf_out);
-        //return null;
-        System.out.println(stackTraceElements[2].getClassName() + "#" + stackTraceElements[2].getMethodName());
-        return stackTraceElements[2].getClassName() + "#" + stackTraceElements[2].getMethodName();
+        //2.
+        i = 0;
+        System.out.println("\n" + "использование Thread.currentThread().getStackTrace()" + "\n" + "******************************************");
+        //st[0] это то, что был вызван сам getStackTrace, st[1] то что был вызван currentThread(),  st[2] - тот метод выяснить у которого нам надо откуда вызван, st[3]  то, что нам нужно
+        for (StackTraceElement el : stThreads) {
+            System.out.println(i++ + ":" + el.getClassName() + "#" + el.getMethodName());
+        }
+        return null;
     }
+
 }
+
 
